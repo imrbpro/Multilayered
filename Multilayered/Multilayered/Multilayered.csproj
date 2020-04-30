@@ -81,6 +81,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddUser.aspx" />
+    <Content Include="App_Data\Multilayered.mdf" />
+    <Content Include="App_Data\Multilayered_log.ldf">
+      <DependentUpon>Multilayered.mdf</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Index.aspx" />
     <Content Include="UpdateUser.aspx" />
@@ -124,7 +128,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
