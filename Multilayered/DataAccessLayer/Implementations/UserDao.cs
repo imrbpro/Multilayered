@@ -26,7 +26,7 @@ namespace DataAccessLayer.Implementations
             try
             {
                 con.Open();
-                sc = new SqlCommand("insert into User(UserName,Password,FirstName,LastName,Hobby,isActive) Values('"+user.UserName+"','"+user.Password+"','"+user.FirstName+"','"+user.LastName+"','"+user.Hobby+"',"+user.isActive+")", con);
+                sc = new SqlCommand("insert into tUser(UserName,Password,FirstName,LastName,Hobby,isActive) Values('" + user.UserName+"','"+user.Password+"','"+user.FirstName+"','"+user.LastName+"','"+user.Hobby+"',1)", con);
                 if(sc.ExecuteNonQuery() > 0)
                 {
 
@@ -51,7 +51,7 @@ namespace DataAccessLayer.Implementations
             try
             {
                 con.Open();
-                sc = new SqlCommand("Delete User where UserId = "+id+"", con);
+                sc = new SqlCommand("Delete tUser where UserId = "+id+"", con);
                 if (sc.ExecuteNonQuery() > 0)
                 {
 
@@ -71,19 +71,20 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public string GetAllUsers()
+        public DataTable GetAllUsers()
         {
             try
             {
-                DataSet ds = new DataSet();
+                DataTable ds = new DataTable();
                 con.Open();
-                sc = new SqlCommand("select * from User FOR JSON PATH", con);
+                sc = new SqlCommand("select * from tUser", con);
                 reader = sc.ExecuteReader();
-                return reader[0].ToString();
+                ds.Load(reader);
+                return ds;
             }
             catch (Exception ex)
             {
-                return "Error";
+                return null;
             }
         }
 
@@ -92,7 +93,7 @@ namespace DataAccessLayer.Implementations
             try
             {
                 con.Open();
-                sc = new SqlCommand("Update User Set(UserName = '" + user.UserName + "',Password='" + user.Password + "',FirstName='" + user.FirstName + "',LastName ='" + user.LastName + "',Hobby='" + user.Hobby + "',isActive=" + user.isActive + ") Where UserId = "+user.UserId+"", con);
+                sc = new SqlCommand("Update tUser Set(UserName = '" + user.UserName + "',Password='" + user.Password + "',FirstName='" + user.FirstName + "',LastName ='" + user.LastName + "',Hobby='" + user.Hobby + "',isActive=" + user.isActive + ") Where UserId = "+user.UserId+"", con);
                 if (sc.ExecuteNonQuery() > 0)
                 {
 
